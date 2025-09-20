@@ -4,11 +4,12 @@ name: Guardian – Seal Constitution
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]   # ⬅️ seal only on main
+    branches: [ "main" ]
     paths:
-      - 'docs/Constitution.md'
-      - 'docs/ADR-0001-constitution-adoption.md'
-      - 'chronicle/2025-09-19T-constitution-adoption.json'
+      - 'docs/**'              # any governance doc/ADR
+      - 'chronicle/**'         # any chronicle entry
+      - '.github/ISSUE_TEMPLATE/**'
+
 
 concurrency:
   group: guardian-seal-${{ github.ref }}
