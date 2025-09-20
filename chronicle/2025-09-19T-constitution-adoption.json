@@ -3,7 +3,7 @@
   "utc": "2025-09-19T00:00:00Z",
   "author": "EZTrustZone",
   "repo": "cjcgervais/paper-plane-roblox",
-  "commit": "139db7e",
+  "commit": "e2bf25c",
   "adr": "docs/ADR-0001-constitution-adoption.md",
   "artifact": "docs/Constitution.md",
   "summary": "Formal adoption of the Constitution of the Sentinel Tester under EZTZ, Guardian CI, and VR11 principles.",
