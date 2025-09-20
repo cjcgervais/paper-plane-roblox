@@ -1,11 +1,19 @@
+
 name: Guardian – Seal Constitution
+
 on:
   workflow_dispatch:
   push:
+    branches: [ "main" ]   # ⬅️ seal only on main
     paths:
       - 'docs/Constitution.md'
       - 'docs/ADR-0001-constitution-adoption.md'
       - 'chronicle/2025-09-19T-constitution-adoption.json'
+
+concurrency:
+  group: guardian-seal-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   seal:
     runs-on: ubuntu-latest
@@ -13,11 +21,20 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - run: |
+        with:
+          fetch-depth: 0
+
+      - name: Compute canonical hash & fill Chronicle placeholders
+        run: |
           mkdir -p guardian/canonical
           bash scripts/sha256sum_file.sh docs/Constitution.md | awk '{print $1}' > guardian/canonical/constitution.sha256
-          bash scripts/fill_chronicle_placeholders.sh --constitution docs/Constitution.md --adr docs/ADR-0001-constitution-adoption.md --entry chronicle/2025-09-19T-constitution-adoption.json
-      - name: Commit updates
+          bash scripts/fill_chronicle_placeholders.sh \
+            --constitution docs/Constitution.md \
+            --adr docs/ADR-0001-constitution-adoption.md \
+            --entry chronicle/2025-09-19T-constitution-adoption.json
+
+      - name: Commit updates (main only)
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "guardian-actions"
           git config user.email "actions@users.noreply.github.com"
