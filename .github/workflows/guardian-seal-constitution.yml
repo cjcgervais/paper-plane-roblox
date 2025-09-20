@@ -1,0 +1,26 @@
+name: Guardian – Seal Constitution
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'docs/Constitution.md'
+      - 'docs/ADR-0001-constitution-adoption.md'
+      - 'chronicle/2025-09-19T-constitution-adoption.json'
+jobs:
+  seal:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p guardian/canonical
+          bash scripts/sha256sum_file.sh docs/Constitution.md | awk '{print $1}' > guardian/canonical/constitution.sha256
+          bash scripts/fill_chronicle_placeholders.sh --constitution docs/Constitution.md --adr docs/ADR-0001-constitution-adoption.md --entry chronicle/2025-09-19T-constitution-adoption.json
+      - name: Commit updates
+        run: |
+          git config user.name "guardian-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add guardian/canonical/constitution.sha256 chronicle/2025-09-19T-constitution-adoption.json
+          git commit -m "chore(guardian): seal constitution" || echo "No changes"
+          git push
