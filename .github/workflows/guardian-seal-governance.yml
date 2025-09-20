@@ -1,0 +1,53 @@
+name: Guardian – Seal Governance Charter
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'docs/GOVERNANCE_CHARTER.md'
+      - 'docs/ADR-0002-governance-charter.md'
+      - 'chronicle/**'
+
+concurrency:
+  group: guardian-seal-gov-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  seal:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute canonical hash
+        run: |
+          mkdir -p guardian/canonical chronicle
+          sha256sum docs/GOVERNANCE_CHARTER.md | awk '{print $1}' > guardian/canonical/governance_charter.sha256
+
+      - name: Write Chronicle entry
+        run: |
+          HASH="$(cat guardian/canonical/governance_charter.sha256)"
+          TS="$(date -u +%FT%TZ)"
+          cat > "chronicle/${TS}-governance-charter-adoption.json" <<EOF
+          {
+            "event": "governance-charter-adoption",
+            "document": "docs/GOVERNANCE_CHARTER.md",
+            "adr": "docs/ADR-0002-governance-charter.md",
+            "sha256": "${HASH}",
+            "commit": "${{ github.sha }}",
+            "timestamp": "${TS}"
+          }
+          EOF
+
+      - name: Commit updates (main only)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "guardian-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add guardian/canonical/governance_charter.sha256 chronicle/
+          git commit -m "chore(guardian): seal governance charter" || echo "No changes"
+          git push
