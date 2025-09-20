@@ -3,14 +3,14 @@
   "utc": "2025-09-19T00:00:00Z",
   "author": "EZTrustZone",
   "repo": "cjcgervais/paper-plane-roblox",
-  "commit": "<<TO_BE_FILLED_BY_GUARDIAN_CI>>",
+  "commit": "396fdc5",
   "adr": "docs/ADR-0001-constitution-adoption.md",
   "artifact": "docs/Constitution.md",
   "summary": "Formal adoption of the Constitution of the Sentinel Tester under EZTZ, Guardian CI, and VR11 principles.",
   "provenance": {
-    "constitution_hash": "<<TO_BE_FILLED_BY_GUARDIAN_CI>>",
-    "adr_hash": "<<TO_BE_FILLED_BY_GUARDIAN_CI>>",
-    "content_hash": "<<TO_BE_FILLED_BY_GUARDIAN_CI>>"
+    "constitution_hash": "0f467243267359f00f580c7900a019c0a5ae189419d1f3325d6ef8927393a45b",
+    "adr_hash": "218df479f23be35902076ba4bd77719251b1765f0ee185f932a3bdb3be21dd1a",
+    "content_hash": "0f467243267359f00f580c7900a019c0a5ae189419d1f3325d6ef8927393a45b.218df479f23be35902076ba4bd77719251b1765f0ee185f932a3bdb3be21dd1a"
   },
   "attachments": [
     "docs/Constitution.md",
