@@ -1,0 +1,12 @@
+name: Constitution Integrity Check
+on:
+  pull_request:
+    paths:
+      - 'docs/Constitution.md'
+      - 'guardian/canonical/constitution.sha256'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/verify_constitution.sh docs/Constitution.md guardian/canonical/constitution.sha256

@@ -1,0 +1,16 @@
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+artifacts/
+chronicle/telemetry/*.jsonl
+chronicle/telemetry/*.gz
+chronicle/diffs/*.patch
+__pycache__/
+*.pyc
+node_modules/
