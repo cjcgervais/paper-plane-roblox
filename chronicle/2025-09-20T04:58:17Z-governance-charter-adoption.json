@@ -1,0 +1,8 @@
+{
+  "event": "governance-charter-adoption",
+  "document": "docs/GOVERNANCE_CHARTER.md",
+  "adr": "docs/ADR-0002-governance-charter.md",
+  "sha256": "66c0d78c2df3548077b850052a46bb33f6508484e4bdcdaa60b63388d3906db4",
+  "commit": "c1cbec5b23baec7a9ff773273ab1d9e9127f4680",
+  "timestamp": "2025-09-20T04:58:17Z"
+}
